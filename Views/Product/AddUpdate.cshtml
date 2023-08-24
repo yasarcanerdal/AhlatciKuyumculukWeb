@@ -1,0 +1,80 @@
+﻿@using AhlatciKuyumculukWeb.Core.Entities;
+
+@model Product
+
+
+<form method="post" enctype="multipart/form-data">
+	@*resim ekleme işlemi için enctype view de tanımlıyoruz*@
+	<input asp-for="İmgUrl" hidden />  @*Güncelleme işlemi yapılırken img alanı dolu gitmesi için*@
+
+
+	<div class="row">
+		<div class="col-10">
+
+				<div class="border p-3 mt-5">
+
+					<div class="row pb-3">
+						<h2 class="text-primary">@(Model == null ? "Ürün Ekle" : "Ürün Güncelle")</h2>
+					</div>
+					<div class="mb-3">
+						<label asp-for="Feature" class="p-0"></label>
+						<input asp-for="Feature" class="form-control" />
+						<span asp-validation-for="Feature" class="text-bg-danger"></span> @*kullanıcı hata mesajı*@
+					</div>
+					<div class="mb-3">
+						<label asp-for="CategoryId" class="p-0"></label>
+						<select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select"></select>
+					</div>
+					<div class="mb-3">
+						<label asp-for="Description" class="p-0"></label>
+						<input asp-for="Description" class="form-control" />
+						<span asp-validation-for="Description" class="text-bg-danger"></span> @*kullanıcı hata mesajı*@
+					</div>
+					<div class="mb-3">
+						<label asp-for="Price" class="p-0"></label>
+						<input asp-for="Price" class="form-control" />
+						<span asp-validation-for="Price" class="text-bg-danger"></span> @*kullanıcı hata mesajı*@
+					</div>
+
+					<div class="mb-3">
+						<label asp-for="İmgUrl" class="p-0"></label>
+						<input type="file" name="file" class="form-control" />
+					</div>
+
+					@if (Model != null) // Ekleme ve Güncelle işlemini ortak sayfaya taşıdığım için şartı tanımladım
+					{
+						<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Güncelle</button>
+					}
+					else
+					{
+						<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Ürün Ekle</button>
+					}
+
+					<a asp-controller="Product" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Ürünlere Geri Dön</a>
+
+				</div>
+
+		</div>
+
+
+
+
+
+		<div class="col-2">
+		  @if (Model != null)
+		  {
+			 <img src="@Model.İmgUrl" width="200"
+			   style="border-radius:6px; border:2px solid #bbb9" />
+		  }
+
+
+	   </div>
+   </div>
+
+</form>
+
+@*@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/> FRONTEND TARAFINDA DOĞRULAMA İŞLEMİ
+	}
+}*@

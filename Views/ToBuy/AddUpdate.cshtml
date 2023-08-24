@@ -1,0 +1,58 @@
+﻿@using AhlatciKuyumculukWeb.Core.Entities;
+
+@model ToBuy
+
+
+<form method="post" enctype="multipart/form-data">
+	@*resim ekleme işlemi için enctype view de tanımlıyoruz*@
+
+
+	<div class="row">
+		<div class="col-10">
+
+				<div class="border p-3 mt-5">
+
+					<div class="row pb-3">
+						<h2 class="text-primary">@(Model == null ? "Yeni Satın Alma" : "Satın Alma Güncelle")</h2>
+					</div>
+					<div class="mb-3">
+						<label asp-for="CustomerId" class="p-0"></label>
+						<input asp-for="CustomerId" class="form-control" />
+						<span asp-validation-for="CustomerId" class="text-bg-danger"></span> @*kullanıcı hata mesajı*@
+					</div>
+					<div class="mb-3">
+						<label asp-for="ProductId" class="p-0"></label>
+						<select asp-for="ProductId" asp-items="ViewBag.ProductList" class="form-select"></select>
+					</div>
+
+
+					@if (Model != null) // Ekleme ve Güncelle işlemini ortak sayfaya taşıdığım için şartı tanımladım
+					{
+						<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Güncelle</button>
+					}
+					else
+					{
+						<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Yeni Satın Alma</button>
+					}
+
+					<a asp-controller="ToBuy" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Satın Almalara Geri Dön</a>
+
+				</div>
+   
+	   </div>
+
+	   <div class="col-2">
+
+			@if (Model != null)
+			{
+				<br />
+				<img src="@Model.Product.İmgUrl" width="200"
+					 style="border-radius:6px; border:2px solid #bbb9" />
+			}
+
+	   </div>
+
+	</div>
+
+
+</form>

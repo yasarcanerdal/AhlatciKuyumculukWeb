@@ -1,0 +1,90 @@
+﻿@using AhlatciKuyumculukWeb.Core.Entities;
+@using AhlatciKuyumculukWeb.Infrastructure.Context;
+
+@model List<Product>
+
+@if (TempData["basarili"] != null)
+{
+	<h2 style="color:red">@TempData["basarili"]</h2>
+}
+
+<div class="container">
+
+	<div class="row pt-3 pb-4">
+	     <div>
+	       <h1>Ürünler</h1>
+	     </div>
+	</div>
+
+
+	<table class="table table-bordered">
+		<thead>
+				<tr>
+					<th>
+
+					</th>
+					<th>
+						Id
+					</th>
+					<th>
+					   Ürün Özelliği
+					</th>
+					<th>
+					   Açıklama
+					</th>
+					<th>
+						Fiyat
+					</th>
+					<th>
+						Kategori
+					</th>
+
+				   @if (User.IsInRole(UserRoles.Role_Customer))
+				   {
+					  <th>
+
+					  </th>
+					  <th>
+
+					  </th>
+				   }
+				</tr>
+		</thead>
+
+		<tbody>
+			@foreach(var product in Model)
+			{
+				<tr>
+					<td align="center" valign="middle">
+						<img src="@product.İmgUrl" style="border-radius: 6px; border: 2px solid #bbb9;
+									max-width:200px;">
+					</td>
+					<td align="center" valign="middle">@product.Id</td>
+					<td align="center" valign="middle">@product.Feature</td>
+					<td align="center" valign="middle">@product.Description</td>
+					<td align="center" valign="middle">@product.Price</td>
+					<td align="center" valign="middle">@product.Category.Name</td>
+
+					@if (User.IsInRole(UserRoles.Role_Admin)) // Sadece adminin erişebileciği sayfalar
+					{
+						<td align="center" valign="middle">
+							<a asp-controller="Product" asp-action="AddUpdate" asp-route-id="@product.Id" type="button" class="btn btn-success" style="width:150px">Güncelle</a>
+						</td>
+						<td align="center" valign="middle">
+							<a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" type="button" class="btn btn-danger" style="width:150px">Sil</a>
+						</td>
+					}
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	@if (User.IsInRole(UserRoles.Role_Admin))
+	{
+		<div class="row pt-3 pb-2">
+			<div>
+				<a asp-controller="Product" asp-action="AddUpdate" class="btn btn-lg btn-primary" type="button">Yeni Ürün Oluştur</a>
+			</div>
+		</div>
+	}
+</div>

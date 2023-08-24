@@ -1,0 +1,29 @@
+﻿@using AhlatciKuyumculukWeb.Core.Entities;
+
+@model ToBuy
+
+
+<form method="post">
+
+	<div class="border p-3 mt-5">
+
+		<div class="row pb-3">
+			<h2 class="text-primary">Satın Alma Kaydı Sil</h2>
+		</div>
+
+	</div>
+		<div class="mb-3">
+			<label asp-for="CustomerId" class="p-0"></label>
+			<input asp-for="CustomerId" disabled class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label asp-for="ProductId" class="p-0"></label>
+			<select asp-for="ProductId" asp-items="ViewBag.ProductList" disabled class="form-select"></select>
+		</div>
+
+
+			<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Satın Alma Kaydı Sil</button>
+
+			<a asp-controller="ToBuy" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Satın Alma Listesine Geri Dön</a>
+
+</form>
